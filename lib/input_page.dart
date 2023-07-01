@@ -19,6 +19,7 @@ class _InputPageState extends State<InputPage> {
   Color femaleCardColor = kInactiveCardColor;
   late Gender selectedGender = Gender.male;
   int height = 180;
+  int weight = 50;
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +113,27 @@ class _InputPageState extends State<InputPage> {
                     child: ReusableCard(
                         kActiveCardColor,
                         Column(
-                          children: [],
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'WEIGHT',
+                              style: kLabelTextStyle,
+                            ),
+                            Text(
+                              weight.toString(),
+                              style: kNumberTextStyle,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                RoundIconButton(FontAwesomeIcons.plus),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                RoundIconButton(FontAwesomeIcons.minus),
+                              ],
+                            )
+                          ],
                         )),
                   ),
                   Expanded(
@@ -133,5 +154,24 @@ class _InputPageState extends State<InputPage> {
             )
           ],
         ));
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  @override
+  RoundIconButton(this.child);
+  final IconData child;
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      child: Icon(child),
+      onPressed: () {},
+      constraints: const BoxConstraints.tightFor(
+        width: 56.0,
+        height: 56.0,
+      ),
+      elevation: 6,
+      shape: CircleBorder(),
+      fillColor: Color(0xFF4C4F5E),
+    );
   }
 }
