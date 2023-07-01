@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reusableCard.dart';
 import 'genderCard.dart';
 import 'constants.dart';
+import 'calculatorBrain.dart';
 
 enum Gender {
   male,
@@ -25,6 +26,7 @@ class _InputPageState extends State<InputPage> {
 
   @override
   Widget build(BuildContext context) {
+    CalculatorBrain calc = CalculatorBrain(height, weight);
     return Scaffold(
         appBar: AppBar(
           title: const Center(child: Text('BMI CALCULATOR')),
@@ -185,15 +187,20 @@ class _InputPageState extends State<InputPage> {
               ),
             ),
             RawMaterialButton(
-              onPressed: () => {Navigator.pushNamed(context, '/result')},
+              onPressed: () => {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ResultPage(calc.calculate(),
+                            calc.getResult(), calc.getIntepretation())))
+              },
               child: Container(
-                child: Text(
-                  'CALCULATE',
-                
-                  style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600),
+                // padding: EdgeInsets.only(bottom: 20),
+                child: Center(
+                  child: Text(
+                    'CALCULATE',
+                    style: kLargeButtonFontStyle,
+                  ),
                 ),
                 color: kBottomContainerColor,
                 margin: EdgeInsets.only(top: 10),
